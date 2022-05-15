@@ -1,0 +1,8 @@
+{
+  "label": "SDKs",
+  "collapsible": false,
+  "link": {
+    "type": "generated-index",
+    "description": "If your framework or language is not supported yet, make a request at support@tggl.io and directly use the API!"
+  }
+}

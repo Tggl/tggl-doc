@@ -36,6 +36,12 @@ await client.setContext({
   // ...
 })
 ```
+
+:::tip
+Make sure to `await` this method. An API call evaluating all flags is performed here, 
+making all subsequent flag checking methods synchronous.
+:::
+
 You can specify any key you want, just make sure they match the conditions you specify during flags setup.
 
 `setContext` should be called anytime the context changes: 
@@ -43,9 +49,6 @@ You can specify any key you want, just make sure they match the conditions you s
 - user logs in, 
 - user changes email
 - ...
-
-Flags evaluation is done by doing an API call, so you should `await` for it to finish before testing flags, 
-otherwise you will test flags against previous context.
 
 :::caution
 Make sure to call `setContext` at least once, even with an empty context, otherwise no API call is made and all flags will seam to be inactive.
@@ -97,3 +100,34 @@ if (client.isActive('my-feature')) {
 }
 ```
 
+## Stateless flags evaluation
+
+The client is stateful, which is perfectly suited for frontend applications or for creating a new client for each http request.
+Sometimes, especially in the backend, you might want to evaluate a context without persisting any kind of state in the client:
+
+```ts
+const response = await client.evalContext({ foo: 'bar' })
+
+if (response.isActive('my-feature')) {
+  // ...
+}
+
+if (response.get('my-feature') === 'Variation A') {
+  // ...
+}
+```
+
+You can also evaluate multiple context at once:
+```ts
+const [responseA, responseB] = await client.evalContexts([contextA, contextB]) // Only 1 API call
+```
+
+This has the advantage performing a single API call, which is great for performance.
+Note that multiple calls to `evalContext` within the same event loop tick will automatically be batched in a single API call:
+
+```ts
+const [responseA, responseB] = await Promise.all([
+  client.evalContext(contextA),
+  client.evalContext(contextB),
+]) // Only 1 API call
+```

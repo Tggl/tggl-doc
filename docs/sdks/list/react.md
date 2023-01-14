@@ -5,13 +5,12 @@ description: For React SPAs
 
 # React
 
-## Installation
+## Guide
+### Setup
 Add the client to your dependencies:
 ```
 npm i react-tggl-client
 ```
-
-## Setup
 Add the provider to your app:
 ```tsx
 import { TgglClient, TgglProvider } from 'react-tggl-client'
@@ -27,53 +26,30 @@ const App = () => {
   )
 }
 ```
-Read the [Node.js client](./node#instantiating-client) documentation for the list of parameters.
+Read the [Node.js client](./node) documentation for client specific information.
 
-You can optionally pass a context to the provider:
-```tsx
-const App = () => {
-  return (
-    <TgglProvider client={client} initialContext={{ /*...*/ }}>
-      {/*...*/}
-    </TgglProvider>
-  )
-}
-```
-:::caution
-Updating the value of `initialContext` will have no effect, keep reading on how to update the context.
-:::
-
-## Updating the context
+### Updating the context
 You can now change the context anywhere in the app using the `useTggl` hook:
 ```tsx
 import { useTggl } from 'react-tggl-client'
 
 const MyComponent = () => {
-  const { setContext } = useTggl()
-  
-  return (
-    <button onClick={() => setContext({ foo: 'bar' })}>
-      My button
-    </button>
-  )
-}
-```
-
-`setContext` completely overrides the current context, you can use `updateContext`
-to partially update some keys:
-
-```tsx
-const MyComponent = () => {
+  const { user } = useAuth()
   const { updateContext } = useTggl()
-  
-  return (
-    <button onClick={() => updateContext({ foo: 'bar' })}>
-      My button
-    </button>
-  )
+
+  useEffect(() => {
+    if (user) {
+      updateContext({ userId: user.id, email: user.email })
+    } else {
+      updateContext({ userId: null, email: null })
+    }
+  }, [user])
+
+  return <></>
 }
 ```
-## Checking flag results
+
+### Checking flag results
 Use the `useFlag` hook to get the state of a flag:
 ```tsx
 import { useFlag } from 'react-tggl-client'
@@ -94,27 +70,88 @@ const MyComponent = () => {
 }
 ```
 
-If a flag is inactive, deleted, or in-existent, `value` will be `undefined`. You can specify a default value for inactive flags:
+## Reference
+### TgglClient
+The client used to query the Tggl API.
 ```tsx
-const MyComponent = () => {
-  const { value } = useFlag('myFlag', 42)
-  
-  //...
-}
+const client = new TgglClient('YOUR_API_KEY')
 ```
-
-Additionally, you can get the loading and error state of the flag:
+Read more about the [Node.js client](./node).
+### TgglProvider
+Place this component at the root of your app. It gives your app access
+to the client and the state of the client.
 ```tsx
-const MyComponent = () => {
-  const { active, value, loading, error } = useFlag('myFlag')
-  
-  //...
-}
+<TgglProvider client={client} initialContext={{ foo: 'bar' }}>
+  {/*...*/}
+</TgglProvider>
 ```
-`loading` is true when the context is being updated.
-While loading, the `error` is always null.
+#### client
+Pass a `TgglClient` that will be used to evaluate flags.
 
-:::tip
-You should only read the `value`, `loading`, or `error` if you intend to use them.
-This will ensure optimal re-renders.
+#### initialContext
+Allows you to pass an initial value.
+:::caution
+Updating the value of `initialContext` will have no effect, use the [`useTggl`](#usetggl) hook instead
 :::
+
+### useTggl
+You can use this hook anywhere inside the `<TgglProvider />`. 
+It is mostly useful for updating the context with `setContext` and `updateContext`.
+```tsx
+function useTggl(): {
+  client: TgglClient
+  setContext: (context: Context) => void
+  updateContext: (context: Context) => void
+}
+```
+
+#### client
+Returns the client instance passed to `<TgglProvider />`.
+
+#### setContext
+Override the context and triggers an API call to evaluate flags.
+
+#### updateContext
+Just like `setContext` but keys are merged into the existing context.
+This should be used if you wish to only update a few keys, leaving the rest unchanged.
+
+### useFlag 
+
+```tsx
+function useFlag<T>(slug: string): {
+  active: boolean
+  value: T | undefined
+  loading: boolean
+  error: any
+}
+
+function useFlag<T>(
+  slug: string,
+  defaultValue: T
+): {
+  active: boolean
+  value: T
+  loading: boolean
+  error: any
+}
+```
+:::tip
+Only read the keys that you really need to avoid unnecessary re-renders.
+:::
+
+#### active
+True when the flag is active, false otherwise.
+
+#### value
+The value of the flag or `undefined` if the flag is not active. 
+You can pass a default value as second parameter of this hook
+to be used when the flag is not active.
+
+Always use `active` instead of `value` if you only want to know if a flag is active or not.
+Otherwise, a falsy value (null, '', 0, false) might lead to unexpected behavior.
+
+#### loading
+True when an API call is being performed.
+
+#### error
+The error thrown by the last API call if any.

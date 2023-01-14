@@ -10,103 +10,43 @@ Add the client to your dependencies:
 npm i tggl-client
 ```
 
-## Instantiating client
-Import and instantiate the client:
-```typescript
+## Quick start
+
+**Stateful** flags evaluation stores result in the client.
+This is commonly used when instantiating a new client per HTTP request or when working on the frontend.
+You can use `isActive` and `get` on the client to access results:
+
+```ts
 import { TgglClient } from 'tggl-client'
 
 const client = new TgglClient('YOUR_API_KEY')
-```
 
-You may pass options as a second parameter:
-```typescript
-const client = new TgglClient('YOUR_API_KEY', { url: 'https://custom-domain.com' })
-```
-
-The only available options is `url`, it allows you to override the default API URL (`https://api.tggl.io/flags`).
-
-## Evaluating flags
-
-Set the context on which flags evaluation should be performed:
-```typescript
 await client.setContext({
   userId: 'foo',
   email: 'foo@gmail.com',
   country: 'FR',
   // ...
 })
-```
 
-:::tip
-Make sure to `await` this method. An API call evaluating all flags is performed here, 
-making all subsequent flag checking methods synchronous.
-:::
-
-You can specify any key you want, just make sure they match the conditions you specify during flags setup.
-
-`setContext` should be called anytime the context changes: 
-- app starts, 
-- user logs in, 
-- user changes email
-- ...
-
-:::caution
-Make sure to call `setContext` at least once, even with an empty context, otherwise no API call is made and all flags will seam to be inactive.
-:::
-
-## Checking flag results
-
-You can test if a flag is active or not:
-```typescript
 if (client.isActive('my-feature')) {
   // ...
 }
-```
 
-Because flags evaluation is done when you call `setContext`, checking if a flag is active is
-synchronous and extremely fast.
-
-An inactive flag and a non-existing flag will both return false. This is by design and prevents anyone from breaking your
-app by just deleting a flag, it will simply be considered inactive.
-
-You can get the value of a flag:
-```typescript
 if (client.get('my-feature') === 'Variation A') {
   // ...
 }
 ```
-
-If a flag is inactive, it will always return `undefined`, otherwise it will return the value of the variation the context falls in (which might be `null`).
-
-You can specify a default value for innactive flags:
-
-```typescript
-if (client.get('my-feature', 'Variation A') === 'Variation A') {
-  // ...
-}
-```
-
-## `isActive` vs `get`
-
-If you just want to know if a flag is active use `isActive` instead of `get`. 
-
-```typescript
-if (client.get('my-feature')) {
-  // If 'my-feature' is active, but its value is falsy ('', 0, null, false) this block won't be executed
-}
-
-if (client.isActive('my-feature')) {
-  // Even if 'my-feature' has a falsy value this block will be executed if 'my-feature' is active
-}
-```
-
-## Stateless flags evaluation
-
-The client is stateful, which is perfectly suited for frontend applications or for creating a new client for each http request.
-Sometimes, especially in the backend, you might want to evaluate a context without persisting any kind of state in the client:
+**Stateless** flags evaluation does not change the client state.
+It is commonly used on the backend with a global singleton client.
+You can use `isActive` and `get` on the response to access results:
 
 ```ts
-const response = await client.evalContext({ foo: 'bar' })
+const response = await client.evalContext({
+  userId: 'foo',
+  email: 'foo@gmail.com',
+  country: 'FR',
+  // ...
+})
 
 if (response.isActive('my-feature')) {
   // ...
@@ -117,17 +57,95 @@ if (response.get('my-feature') === 'Variation A') {
 }
 ```
 
-You can also evaluate multiple context at once:
-```ts
-const [responseA, responseB] = await client.evalContexts([contextA, contextB]) // Only 1 API call
+## Async / await
+An single API call evaluating all flags is performed when calling
+`setContext` or `evalContext`,
+making all subsequent flag checking methods synchronous and extremely fast.
+
+This means that you do not need to cache results of `isActive` and `get` since
+they do not trigger an API call, they simply look up the data in the already fetched response.
+
+## `isActive` vs `get`
+
+By design, you have no way of telling apart an inactive flag, a non-existing flag, a deleted flag, or a network error. 
+This design choice prevents anything from breaking your
+app by just deleting a flag, messing up the API key rotation, or any other unforeseen event, it will simply consider any flag to be inactive.
+
+:::tip
+Do not use `get` if you simply want to know if a flag is active or not, use `isActive` instead.
+:::
+
+`get` gives you the value of an active flag, and this value may be "falsy" (null, false, 0, or empty string), leading to unexpected behaviors:
+
+```typescript
+if (client.get('my-feature')) {
+  // If 'my-feature' is active, but its value is falsy this block won't be executed
+}
+
+if (client.isActive('my-feature')) {
+  // Even if 'my-feature' has a falsy value, this block will be executed
+}
 ```
 
-This has the advantage performing a single API call, which is great for performance.
-Note that multiple calls to `evalContext` within the same event loop tick will automatically be batched in a single API call:
+## Reference
+
+The client can be instantiated with or without options:
+```ts
+import { TgglClient } from 'tggl-client'
+
+const client = new TgglClient('YOUR_API_KEY')
+const client = new TgglClient('YOUR_API_KEY', { url: 'https://api.tggl.io/flags' })
+```
+
+You will find your API key on the [app](https://app.tggl.io/projects/app/api-keys). 
+
+### `setContext`
+> `setContext(context: Context): Promise<void>`
+
+Performs an API call, evaluating all flags for a given context.
+Calling `setContext` updates the state of the client, you can read the response using [get](#get) and [isActive](#isactive) on the client directly.
+
+### `isActive`
+>`isActive(slug: string): boolen`
+
+Returns true when a flag is active. A value of false could mean:
+- The flag is inactive due to some conditions
+- The flag does not exist
+- The flag was deleted
+- The API key is not valid
+- Some network error
+
+### `get`
+> `get<T>(slug: string): T | undefined`<br/>
+> `get<T>(slug: string, defaultValue: T): T`
+
+Returns the value of a flag, or `undefined` if the flag is not active.
+You may specify a default value as second parameter to use when the flag is inactive.
+
+### `evalContext`
+> `evalContext(context: Context): Promise<TgglResponse>`
+
+Performs an API call, evaluating all flags for a given context.
+Calling `evalContext` does not update the state of the client, 
+you can read the response using `get` and `isActive` on the response directly.
+
+All simultaneous calls to `evalContext` (within the same event loop tick) 
+will automatically be batched in a single API call.
 
 ```ts
 const [responseA, responseB] = await Promise.all([
   client.evalContext(contextA),
   client.evalContext(contextB),
-]) // Only 1 API call
+]) // => only 1 API call
+```
+### `evalContexts`
+> `evalContexts(contexts: Context[]): Promise<TgglResponse[]>`
+
+This is a shorthand to calling `evalContext` multiple times simultaneously.
+
+```ts
+const [responseA, responseB] = await client.evalContexts([
+  contextA,
+  contextB,
+])
 ```

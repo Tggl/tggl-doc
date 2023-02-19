@@ -4,13 +4,14 @@ description: For backend Node.js or unsupported frontend frameworks
 ---
 
 # Node.js
-## Installation
+## Guide
+### Installation
 Add the client to your dependencies:
 ```
 npm i tggl-client
 ```
 
-## Quick start
+### Quick start
 
 **Stateful** flags evaluation stores result in the client.
 This is commonly used when instantiating a new client per HTTP request or when working on the frontend.
@@ -57,7 +58,7 @@ if (response.get('my-feature') === 'Variation A') {
 }
 ```
 
-## Async / await
+### Async / await
 An single API call evaluating all flags is performed when calling
 `setContext` or `evalContext`,
 making all subsequent flag checking methods synchronous and extremely fast.
@@ -65,7 +66,7 @@ making all subsequent flag checking methods synchronous and extremely fast.
 This means that you do not need to cache results of `isActive` and `get` since
 they do not trigger an API call, they simply look up the data in the already fetched response.
 
-## `isActive` vs `get`
+### `isActive` vs `get`
 
 By design, you have no way of telling apart an inactive flag, a non-existing flag, a deleted flag, or a network error. 
 This design choice prevents anything from breaking your
@@ -87,7 +88,7 @@ if (client.isActive('my-feature')) {
 }
 ```
 
-## Evaluate flags locally
+### Evaluate flags locally
 
 It is possible to evaluate flags locally on the server but not recommended unless you have performance issues evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.

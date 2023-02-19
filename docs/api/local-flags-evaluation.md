@@ -59,3 +59,6 @@ The response is a JSON array:
 ]
 ```
 
+If you are using Node you can use the [Node.js client](/docs/sdks/list/node) to query the configuration and parse the result.
+Otherwise you should refer to the [reference implementation](https://github.com/Tggl/tggl-core) written in Javascript to
+parse the result in your own programming language.

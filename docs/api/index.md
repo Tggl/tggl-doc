@@ -24,7 +24,7 @@ Each project has its own set of client and server key which allows you do perfor
 | Evaluate flags via API                              | ✅          | ✅         |
 | Fetch flags configuration and evaluate flags locally | ❌          | ✅         |
 
-It is recommended to always evaluate flags via the API unless you have performance issues and are evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
+It is recommended to always evaluate flags via the API unless you have performance issues evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
 
 :::info

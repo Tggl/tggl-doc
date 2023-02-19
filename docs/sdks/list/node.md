@@ -87,6 +87,38 @@ if (client.isActive('my-feature')) {
 }
 ```
 
+## Evaluate flags locally
+
+It is possible to evaluate flags locally on the server but not recommended unless you have performance issues evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
+Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
+
+```ts
+import { TgglLocalClient } from 'tggl-client'
+
+const client = new TgglLocalClient('YOUR_SERVER_API_KEY')
+
+// This method performs an API call and updates the flags configuration
+await client.fetchConfig()
+
+// Evaluation is performed locally
+client.isActive({ userId: 'foo' }, 'my-feature')
+client.isActive({ userId: 'bar' }, 'my-feature')
+
+// You can also get the value of a flag, with and without default value
+client.get({ userId: 'baz' }, 'my-feature')
+client.get({ userId: 'foobar' }, 'my-feature', 42)
+```
+When evaluating flags locally it is your responsibility to keep the configuration up to date by calling `fetchConfig`. 
+
+Alternatively you can create the client with a default configuration so you don't need to call `fetchConfig` to start evaluating flags:
+```ts
+import { TgglLocalClient } from 'tggl-client'
+
+const client = new TgglLocalClient('YOUR_SERVER_API_KEY', { 
+  initialConfig: [{ slug: 'flagA', /*...*/ }] 
+})
+```
+
 ## Reference
 
 The client can be instantiated with or without options:
@@ -94,7 +126,14 @@ The client can be instantiated with or without options:
 import { TgglClient } from 'tggl-client'
 
 const client = new TgglClient('YOUR_API_KEY')
-const client = new TgglClient('YOUR_API_KEY', { url: 'https://api.tggl.io/flags' })
+const client = new TgglClient('YOUR_API_KEY', { 
+  url: 'https://api.tggl.io/flags',
+  // 👇 Initial response from the API
+  initialActiveFlags: {
+    flagA: null,
+    flagB: 'foo',
+  }, 
+})
 ```
 
 You will find your API key on the [app](https://app.tggl.io/projects/app/api-keys). 

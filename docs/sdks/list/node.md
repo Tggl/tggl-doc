@@ -59,7 +59,7 @@ if (response.get('my-feature') === 'Variation A') {
 ```
 
 ### Async / await
-An single API call evaluating all flags is performed when calling
+A single API call evaluating all flags is performed when calling
 `setContext` or `evalContext`,
 making all subsequent flag checking methods synchronous and extremely fast.
 
@@ -127,6 +127,7 @@ The client can be instantiated with or without options:
 import { TgglClient } from 'tggl-client'
 
 const client = new TgglClient('YOUR_API_KEY')
+
 const client = new TgglClient('YOUR_API_KEY', { 
   url: 'https://api.tggl.io/flags',
   // 👇 Initial response from the API

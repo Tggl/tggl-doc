@@ -27,7 +27,7 @@ flags = client.eval_context({
 ```
 
 You can then check flag results:
-```pyhton
+```python
 # On/Off flags
 if (flags.is_active('feature_1')):
     print('Feature 1 is active')

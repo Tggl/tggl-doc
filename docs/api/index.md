@@ -32,10 +32,10 @@ Each project has its own set of client and server key which allows you do perfor
 | Evaluate flags via API                              | ✅          | ✅         |
 | Fetch flags configuration and evaluate flags locally | ❌          | ✅         |
 
-It is recommended to always evaluate flags via the API unless you have performance issues evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
+It is recommended to always evaluate flags via the API unless you have performance issues when evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date which might be a source of issues.
 
 :::info
-Never publish the server key to your client apps or you risk exposing sensitive information. 
+**Never** publish the server key to your client apps or you risk exposing sensitive information. 
 Client applications do not need to evaluate flags locally since Tggl is already optimised to perform a single API call when the app starts. 
 :::

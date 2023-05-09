@@ -10,6 +10,12 @@ Add the client to your dependencies:
 ```
 npm i tggl-client
 ```
+```
+yarn add tggl-client
+```
+```
+pnpm install tggl-client
+```
 
 ### Quick start
 

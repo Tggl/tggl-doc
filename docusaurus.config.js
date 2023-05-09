@@ -46,12 +46,12 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          // {
-          //   type: 'doc',
-          //   docId: 'tutorials/index',
-          //   position: 'left',
-          //   label: 'Tutorials',
-          // },
+          {
+            type: 'doc',
+            docId: 'doc/index',
+            position: 'left',
+            label: 'Documentation',
+          },
           {
             type: 'doc',
             docId: 'api/index',
@@ -78,8 +78,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                to: '/docs/tutorials',
-                label: 'Tutorials',
+                to: '/docs/doc',
+                label: 'Documentation',
               },
               {
                 to: '/docs/api',

@@ -11,6 +11,13 @@ Add the client to your dependencies:
 ```
 npm i react-tggl-client
 ```
+```
+yarn add react-tggl-client
+```
+```
+pnpm install react-tggl-client
+```
+
 Add the provider to your app:
 ```tsx
 import { TgglClient, TgglProvider } from 'react-tggl-client'

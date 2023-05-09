@@ -3,6 +3,7 @@ sidebar_position: 2
 ---
 
 # Evaluating flags via API
+# Evaluating a single context
 
 The `POST /flags` endpoint allows you to send a context object serialized as JSON and retrieve all active flags at once for that context.
 

@@ -78,7 +78,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                to: '/docs/doc',
+                to: '/docs/doc/use-cases/environments',
                 label: 'Documentation',
               },
               {

@@ -48,7 +48,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'doc/index',
+            docId: 'doc/use-cases/environments',
             position: 'left',
             label: 'Documentation',
           },

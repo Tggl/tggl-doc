@@ -1,0 +1,63 @@
+.image-centered-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-background {
+  background: #0E8BE7;
+  display: flex;
+  padding: calc(var(--image-padding-y) * 1px) calc(var(--image-padding-x) * 1px);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--ifm-leading);
+  overflow: hidden;
+}
+
+.image-background.top {
+  padding-top: 0;
+}
+
+.image-background.top > * {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.image-background.left {
+  padding-left: 0;
+  justify-content: start;
+}
+
+.image-background.left > * {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.image-background.bottom {
+  padding-bottom: 0;
+}
+
+.image-background.bottom > * {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.image-background.right {
+  padding-right: 0;
+  justify-content: end;
+}
+
+.image-background.right > * {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.image-background > * {
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 6px 20px 0, rgba(0, 0, 0, 0.06) 0 0 0 1px;
+  overflow: hidden;
+}
+
+.image-background img {
+  display: block;
+}

@@ -28,12 +28,12 @@ If you need to add or rename environments to fit you existing workflow,
 start by selecting your project in the upper left corner and go to the 
 _context_ menu.
 
-![Context menu](context-menu.png)
+<Image img={require('./context-menu@2x.png')} center padding="l" />
 
 Edit the _Environment_ property to add / rename environments as needed and 
 hit _Update_.
 
-![edit environment](edit-environment.png)
+<Image img={require('./edit-environment@2x.png')} bottom />
 
 ## Passing the environment from your code
 
@@ -51,7 +51,7 @@ Here we use the `environment` key because it is the one we setted up in Tggl
 as shown on the screenshot below. You can use any key you want by changing 
 it on the Tggl app.
 
-![Environment key](environment-key.png)
+<Image img={require('./environment-key@2x.png')} />
 
 ## How to enable features for specific environments only?
 
@@ -59,7 +59,7 @@ Create a feature flag and use the environment in your conditions to
 enable it for specific environments only. Here we enabled the feature only for 
 the **staging** and **development** environments:
 
-![edit environment](environment-condition.png)
+<Image img={require('./environment-condition@2x.png')} />
 
 ## How to conditionally enable features based on the environment?
 
@@ -67,4 +67,4 @@ You can add complex logic to you feature flag's conditions. In this
 example we enabled the feature for all users for development and staging, and 
 only enabled it for France for production.
 
-![Complex conditions](complex-env-conditions.png)
+<Image img={require('./complex-env-conditions@2x.png')} />

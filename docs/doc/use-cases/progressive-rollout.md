@@ -26,7 +26,7 @@ to you and that you trust.
 This is very straight forward to do with Tggl, simply create a flag and 
 choose the **Private beta** template:
 
-![Private beta](./private-beta.png)
+<Image img={require('./assets/private-beta@2x.png')} padding="l" />
 
 This template automatically crates a condition where all users having their 
 email ending with `@acme.com` will be included in the rollout. You can 
@@ -34,7 +34,7 @@ replace this condition with the domain of you company to test the feature
 internally, or you can manually list emails of users that you want to 
 include to be more specific:
 
-![Email ends with](email-ends-with.png)
+<Image img={require('./assets/email-ends-with@2x.png')} padding="l" />
 
 Once you are confident that the feature works as expected in production, you 
 can move on 
@@ -50,7 +50,7 @@ From the Tggl app simply create a flag and choose the **Private beta** template.
 Then update the condition to select the countries you want to include in the 
 rollout:
 
-![Country rollout](country-rollout.png)
+<Image img={require('./assets/country-rollout@2x.png')} padding="l" />
 
 Here we chose to release our feature in two countries. You can add more 
 countries to the list once you are ready to expand.
@@ -92,7 +92,7 @@ stickyness on?
 Once you have decided on the property to use, simply create a flag and set 
 it up like so:
 
-![Percentage rollout](percentage-rollout.png)
+<Image img={require('./assets/percentage-rollout@2x.png')} padding="l" />
 
 Here our feature is rolled out to 20% of the users. You can increase this 
 value as time passes until you reach 100%. 

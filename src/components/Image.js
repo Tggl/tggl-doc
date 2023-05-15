@@ -14,8 +14,6 @@ export const Image = ({alt, img, top, left, right, bottom, center, padding = 'm'
     </div>
   )
 
-  console.log(img)
-
   if (center) {
     return (
       <div className="image-centered-container">

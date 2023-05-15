@@ -22,14 +22,14 @@ of you projects.
 
 If you want to be notified only when a flag is updated in a specific project,
 you have to implement some logic on your side by checking the content of the 
-request's body.
+[request's body](#request-body).
 
 ## Authentication
 
 You must use a header to authenticate the request. Most of the time you will 
 probably want to use an `Authorization` header with a `Bearer`:
 
-<Image img={require('./webhook-auth@2x.png')} padding="l" />
+<Image img={require('./assets/webhook-auth@2x.png')} padding="l" />
 
 
 ## Request body
@@ -48,12 +48,12 @@ body format:
 The `flagSlug` key is the slug of the flag that was updated, you can find it 
 on the app:
 
-<Image img={require('./flags-slugs@2x.png')} />
+<Image img={require('./assets/flags-slugs@2x.png')} />
 
 The `projectSlug` key is the slug of the project of the flag and can also be 
 found on the app:
 
-<Image img={require('./project-slug@2x.png')} padding="l" bottom />
+<Image img={require('./assets/project-slug@2x.png')} padding="l" bottom />
 
 ## Debugging
 
@@ -61,4 +61,4 @@ You can debug your webhooks by sending a test request to your endpoint and
 displaying the list of calls. For each call you can inspect the request and 
 the response.
 
-<Image img={require('./webhook-runs@2x.png')} padding="l" />
+<Image img={require('./assets/webhook-runs@2x.png')} padding="l" />

@@ -1,0 +1,16 @@
+.api-endpoint {
+  background: var(--ifm-color-emphasis-200);
+  padding-right: 10px;
+  font-family: var(--ifm-font-family-monospace);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.api-endpoint span {
+  padding: 4px 10px;
+  margin-right: 10px;
+  background: #ef5350;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  color: white;
+}

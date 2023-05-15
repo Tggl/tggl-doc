@@ -3,9 +3,29 @@ sidebar_position: 2
 ---
 
 # Evaluating flags via API
+
+<Image img={require('./assets/api-flags-evaluation.png')} />
+
+For client-side applications, the recommended way to evaluate flags is to 
+use the API. This way you do not expose any sensitive information to the 
+client, and you have a consistent evaluation strategy without 
+re-implementing the logic in every language.
+
+You only need to perform a single API call when the context changes, 
+typically when you load the app or when the user logs in. From that single 
+call you receive all flags at once and can simply look up the list of flags 
+to see if a particular feature should be active or not.
+
+The API can also be used on the backend to evaluate flags for a large number 
+of contexts at once. Once again this is recommended to avoid re-implementing 
+evaluation logic and to avoid maintaining a cache of the configuration.
+
 # Evaluating a single context
 
-The `POST /flags` endpoint allows you to send a context object serialized as JSON and retrieve all active flags at once for that context.
+The <Api method="POST" url="/flags" /> endpoint allows you to send a context 
+object 
+serialized as 
+JSON and retrieve all active flags at once for that context.
 
 ```bash
 curl 'https://api.tggl.io/flags' \

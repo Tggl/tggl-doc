@@ -4,22 +4,36 @@ sidebar_position: 3
 
 # Evaluating flags locally
 
-The `GET /config` endpoint allows you to retrieve all active flag's configurations at once, making it possible to then evaluate an extremely high number of flags locally without doing any API calls.
+<Image img={require('./assets/local-flags-evaluation.png')} />
+
 
 :::info
-It is recommended to always evaluate flags [via the API](api-flags-evaluation) unless 
-you have performance issues and are evaluating flags at a high frequency, 
-or if you need to split traffic on the edge without doing an API call. 
+You **should not** evaluate flags locally on client side applications to 
+prevent 
+exposing sensitive information to the client.
 
-Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
+On the backend side it is recommended to always evaluate flags 
+[via the API](api-flags-evaluation) unless you have performance issues when evaluating 
+flags at a high frequency, or if you need to split traffic on the edge 
+without doing an API call.
+
+Evaluating flags locally forces you to maintain a copy of flags 
+configuration up to date and potentially re-implement the evaluation logic in 
+your language, which might be a source of issues.
 :::
+
+## Retrieving the configuration
+
+The <Api method="GET" url="/config" /> endpoint allows you to retrieve all 
+active flag's configurations at once, making it possible to then evaluate an extremely high number of flags locally without doing any API calls.
+
 
 ```bash
 curl 'https://api.tggl.io/config' \
   -H 'x-tggl-api-key: <server api key>'
 ```
 
-The response is a JSON array:
+The response is a JSON array containing all active flags:
 ```json
 [
   {
@@ -62,3 +76,14 @@ The response is a JSON array:
 If you are using Node you can use the [Node.js client](/docs/sdks/list/node) to query the configuration and parse the result.
 Otherwise you should refer to the [reference implementation](https://github.com/Tggl/tggl-core) written in Javascript to
 parse the result in your own programming language.
+
+## When to retrieve the configuration?
+
+You have only a few solutions to maintain the cache of the configuration up to 
+date:
+- Manually refresh the cache when you update a flag
+- Automatically refresh the cache at a regular interval
+- Use a webhook to update the cache when a flag is updated
+
+It is recommended to use a [webhook](./webhooks) as it offers the fastest 
+automatic update.

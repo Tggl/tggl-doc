@@ -60,4 +60,5 @@
 
 .image-background img {
   display: block;
+  margin-bottom: 0 !important;
 }

@@ -18,7 +18,7 @@
   padding-top: 0;
 }
 
-.image-background.top > * {
+.image-background.top .image-container {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -28,7 +28,7 @@
   justify-content: start;
 }
 
-.image-background.left > * {
+.image-background.left .image-container {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -37,7 +37,7 @@
   padding-bottom: 0;
 }
 
-.image-background.bottom > * {
+.image-background.bottom .image-container {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -47,18 +47,21 @@
   justify-content: end;
 }
 
-.image-background.right > * {
+.image-background.right .image-container {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
-.image-background > * {
+.image-background .image-container {
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.16) 0 6px 20px 0, rgba(0, 0, 0, 0.06) 0 0 0 1px;
   overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 .image-background img {
   display: block;
-  margin-bottom: 0 !important;
+  height: auto;
 }

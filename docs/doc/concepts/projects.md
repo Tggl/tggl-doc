@@ -20,3 +20,11 @@ application, you probably want three different projects:
   control on each application.
 - The environments are probably different too (staging, production, etc.).
 - Different teammates are working on different projects
+
+## When *not* to create a new project
+
+:::tip
+You should not create a new project just to have another [environment](../use-cases/environments) (production, staging, locale...), domain name, app version... you can simply [add a property to the context](./context) instead.
+:::
+
+Doing so will allow you to write your flags only once and reuse them across all your environments / domains. You will be able to conditionally enable each flag for a specific domain, environment or app version.

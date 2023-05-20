@@ -2,20 +2,38 @@
 sidebar_position: 2
 description: For React SPAs
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # React
 
 ## Guide
 ### Setup
 Add the client to your dependencies:
+```mdx-code-block
+<Tabs>
+  <TabItem value="npn" label="npm" default>
+```
 ```
 npm i react-tggl-client
+```
+```mdx-code-block
+  </TabItem>
+  <TabItem value="Yarn" label="Yarn">
 ```
 ```
 yarn add react-tggl-client
 ```
+```mdx-code-block
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+```
 ```
 pnpm install react-tggl-client
+```
+```mdx-code-block
+  </TabItem>
+</Tabs>
 ```
 
 Add the provider to your app:

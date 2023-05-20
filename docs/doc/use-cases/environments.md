@@ -28,7 +28,7 @@ If you need to add or rename environments to fit you existing workflow,
 start by selecting your project in the upper left corner and go to the 
 _context_ menu.
 
-<Image img={require('./assets/context-menu@2x.png')} center padding="l" />
+<Image img={require('./assets/context-menu@2x.png')} bottom right center padding="l" />
 
 Edit the _Environment_ property to add / rename environments as needed and 
 hit _Update_.

@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Evaluating flags locally
 
-<Image img={require('./assets/local-flags-evaluation.png')} />
+<Image img={require('./assets/local-flags-evaluation.png')} density={1} />
 
 
 :::info

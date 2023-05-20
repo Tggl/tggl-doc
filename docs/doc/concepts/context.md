@@ -60,15 +60,13 @@ Start by adding it to the Tggl app. Since context are [project](./projects)
 specific, first select the project you want to add the property to, then 
 from the context menu hit _New_:
 
-<Image img={require('./assets/new-context-property@2x.png')} bottom 
-padding="s" />
+<Image img={require('./assets/new-context-property@2x.png')} bottom padding="s" />
 
 From this modal you can create the property you want, here we created a 
 version number for our Android app that will allow us to display a 
 fullscreen message on deprecated app versions.
 
-<Image img={require('./assets/create-context-property-modal@2x.png')}
-padding="l" />
+<Image img={require('./assets/create-context-property-modal@2x.png')} />
 
 The name an type are used by Tggl to display the list of properties to pick 
 from and the corresponding operator on the app. Because we selected the type 
@@ -76,7 +74,7 @@ version, we have the _min version_, _max version_, and _exact version_
 operators that we can choose from. If we had chosen a date type, we would 
 have date operators available, and so on.
 
-<Image img={require('./assets/in-app-version@2x.png')} padding="l" />
+<Image img={require('./assets/in-app-version@2x.png')} />
 
 The context key is used within the code of your app to pass the right value:
 ```ts

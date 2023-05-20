@@ -15,7 +15,7 @@ and have them automatically deployed to production at the right time.
 This is the simplest form a scheduling, we simply want the feature to be 
 live at a given date and time. Create a new flag and set it up like so:
 
-<Image img={require('./assets/release-date@2x.png')} padding="l" />
+<Image img={require('./assets/release-date@2x.png')} />
 
 The timezone of your browser will automatically be selected. Not that 
 current time is automatically added to the [context](../concepts/context), your app 

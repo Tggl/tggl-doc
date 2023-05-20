@@ -29,7 +29,7 @@ you have to implement some logic on your side by checking the content of the
 You must use a header to authenticate the request. Most of the time you will 
 probably want to use an `Authorization` header with a `Bearer`:
 
-<Image img={require('./assets/webhook-auth@2x.png')} padding="l" />
+<Image img={require('./assets/webhook-auth@2x.png')} />
 
 
 ## Request body
@@ -53,7 +53,7 @@ on the app:
 The `projectSlug` key is the slug of the project of the flag and can also be 
 found on the app:
 
-<Image img={require('./assets/project-slug@2x.png')} padding="l" bottom />
+<Image img={require('./assets/project-slug@2x.png')} bottom right center padding="l" />
 
 ## Debugging
 
@@ -61,4 +61,4 @@ You can debug your webhooks by sending a test request to your endpoint and
 displaying the list of calls. For each call you can inspect the request and 
 the response.
 
-<Image img={require('./assets/webhook-runs@2x.png')} padding="l" />
+<Image img={require('./assets/webhook-runs@2x.png')} />

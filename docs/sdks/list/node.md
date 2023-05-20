@@ -2,19 +2,37 @@
 sidebar_position: 1
 description: For backend Node.js or unsupported frontend frameworks
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Node.js
 ## Guide
 ### Installation
 Add the client to your dependencies:
+```mdx-code-block
+<Tabs>
+  <TabItem value="npn" label="npm" default>
+```
 ```
 npm i tggl-client
+```
+```mdx-code-block
+  </TabItem>
+  <TabItem value="Yarn" label="Yarn">
 ```
 ```
 yarn add tggl-client
 ```
+```mdx-code-block
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+```
 ```
 pnpm install tggl-client
+```
+```mdx-code-block
+  </TabItem>
+</Tabs>
 ```
 
 ### Quick start
@@ -48,18 +66,18 @@ It is commonly used on the backend with a global singleton client.
 You can use `isActive` and `get` on the response to access results:
 
 ```ts
-const response = await client.evalContext({
+const falgs = await client.evalContext({
   userId: 'foo',
   email: 'foo@gmail.com',
   country: 'FR',
   // ...
 })
 
-if (response.isActive('my-feature')) {
+if (flags.isActive('my-feature')) {
   // ...
 }
 
-if (response.get('my-feature') === 'Variation A') {
+if (flags.get('my-feature') === 'Variation A') {
   // ...
 }
 ```
@@ -115,14 +133,17 @@ client.isActive({ userId: 'bar' }, 'my-feature')
 client.get({ userId: 'baz' }, 'my-feature')
 client.get({ userId: 'foobar' }, 'my-feature', 42)
 ```
-When evaluating flags locally it is your responsibility to keep the configuration up to date by calling `fetchConfig`. 
+When evaluating flags locally it is your responsibility to keep the configuration up to date by calling `fetchConfig` when needed. You can use [webhooks](../../api/webhooks) to be notified when the configuration changes.
 
-Alternatively you can create the client with a default configuration so you don't need to call `fetchConfig` to start evaluating flags:
+You can cache the configuration and instantiate the client with the cached version, so you don't need to call `fetchConfig`:
+
 ```ts
 import { TgglLocalClient } from 'tggl-client'
 
-const client = new TgglLocalClient('YOUR_SERVER_API_KEY', { 
-  initialConfig: [{ slug: 'flagA', /*...*/ }] 
+const cachedConfig = [{ slug: 'flagA', /*...*/ }]
+
+const client = new TgglLocalClient('YOUR_SERVER_API_KEY', {
+  initialConfig: cachedConfig
 })
 ```
 

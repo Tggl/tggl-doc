@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Evaluating flags via API
 
-<Image img={require('./assets/api-flags-evaluation.png')} />
+<Image img={require('./assets/api-flags-evaluation.png')} density={1} />
 
 For client-side applications, the recommended way to evaluate flags is to 
 use the API. This way you do not expose any sensitive information to the 

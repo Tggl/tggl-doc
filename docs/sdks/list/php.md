@@ -19,10 +19,10 @@ This means that you do not need to cache results of isActive and get since they 
 ```php
 use Tggl\Client\TgglClient;
 
-// Some class that defines your context
+// Some class to represent your context
 class Context {
-  public $userId;
-  public $email;
+  $userId;
+  $email;
 }
 
 $client = new TgglClient('YOUR_API_KEY');
@@ -38,7 +38,23 @@ if ($flags->get('my-feature') === 'Variation A') {
   // ...
 }
 ```
-### `isActive` vs `get`
+
+## Evaluating contexts in batches
+
+If you have multiple contexts to evaluate at once, you can batch your calls in a single HTTP request which is much more performant:
+
+```php
+$result = await $client->evalContexts([
+  new Context('foo')
+  new Context('bar')
+]);
+
+// Responses are returned in the same order
+$fooFlags = $result[0];
+$barFlags = $result[1];
+```
+
+## `isActive` vs `get`
 
 By design, you have no way of telling apart an inactive flag, a non-existing flag, a deleted flag, or a network error.
 This design choice prevents anything from breaking your
@@ -63,6 +79,10 @@ if ($flags.isActive('my-feature')) {
 ## Evaluate flags locally
 
 It is possible to evaluate flags locally on the server but not recommended unless you have performance issues evaluating flags at a high frequency. Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
+
+:::danger
+Make sure to [add the right keys to your context](../../api/local-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
+:::
 
 ```php
 use Tggl\Client\TgglLocalClient;

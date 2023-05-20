@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-description: For Python code
+description: For Python backend
 ---
 
 # Python

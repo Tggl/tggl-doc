@@ -87,3 +87,19 @@ date:
 
 It is recommended to use a [webhook](./webhooks) as it offers the fastest 
 automatic update.
+
+## Important differences with the API
+
+When [evaluating flags via the API](./api-flags-evaluation) a few keys are automatically added to the context. When evaluating flags locally it is your responsibility to pass those keys to the context, otherwise any condition that is based on those keys will fail.
+
+:::danger
+If you do not manually pass those keys to the context you might have discrepancies between evaluating flags locally and via the API.
+:::
+
+Here is the exhaustive list of keys that are automatically added by Tggl when evaluating flags via the API:
+
+- `timestamp`: the current timestamp
+- `acceptLanguage`: the value of the `accept-language` HTTP header
+- `ip`: the IP address that made the HTTP request
+- `userAgent`: the value of the `user-agent` HTTP header
+- `referer`: the value of the `referer` HTTP header

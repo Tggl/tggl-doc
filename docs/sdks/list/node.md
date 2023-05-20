@@ -82,6 +82,27 @@ if (flags.get('my-feature') === 'Variation A') {
 }
 ```
 
+### Evaluating contexts in batches
+
+If you have multiple contexts to evaluate at once, you can batch your calls in a single HTTP request which is much more performant:
+
+```ts
+// Responses are returned in the same order
+const [ fooFlags, barFlags ] = await client.evalContexts([
+  { userId: 'foo' },
+  { userId: 'bar' },
+])
+```
+
+The client uses a [dataloader](https://www.npmjs.com/package/dataloader) under the hood, which means that all calls that are performed within the same event loop are batched:
+```ts
+// evalContext is called twice but a single API call is performed
+const [ fooFlags, barFlags ] = await Promise.all([
+  client.evalContext({ userId: 'foo' }),
+  client.evalContext({ userId: 'bar' }),
+])
+```
+
 ### Async / await
 A single API call evaluating all flags is performed when calling
 `setContext` or `evalContext`,
@@ -112,10 +133,14 @@ if (client.isActive('my-feature')) {
 }
 ```
 
-### Evaluate flags locally
+### Evaluating flags locally
 
 It is possible to evaluate flags locally on the server but not recommended unless you have performance issues evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
+
+:::danger
+Make sure to [add the right keys to your context](../../api/local-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
+:::
 
 ```ts
 import { TgglLocalClient } from 'tggl-client'

@@ -139,7 +139,7 @@ It is possible to evaluate flags locally on the server but not recommended unles
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
 
 :::danger
-Make sure to [add the right keys to your context](../../api/local-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
+Make sure to [add the right keys to your context](../../api/server-side-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
 :::
 
 ```ts

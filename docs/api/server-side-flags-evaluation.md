@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Evaluating flags locally
+# Evaluating flags Server-side
 
 <Image img={require('./assets/local-flags-evaluation.png')} density={1} />
 

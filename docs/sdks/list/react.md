@@ -51,7 +51,19 @@ const App = () => {
   )
 }
 ```
-Read the [Node.js client](./node) documentation for client specific information.
+
+For server-side-rendering you can pass the list of active flags directly to the client so the user does not have to re-fetch this list via the API.
+
+```ts
+const client = new TgglClient('YOUR_API_KEY', { 
+  initialActiveFlags: {
+    flagA: null,
+    flagB: 'foo',
+  }, 
+})
+```
+
+Read the [Node.js client](./node#reference) documentation more client specific information.
 
 ### Updating the context
 You can now change the context anywhere in the app using the `useTggl` hook:
@@ -74,6 +86,8 @@ const MyComponent = () => {
 }
 ```
 
+`updateContext` only updates the keys you specify, it merges the context you pass as argument into the existing context. Alternatively you can use `setContext` to override the context completely.
+
 ### Checking flag results
 Use the `useFlag` hook to get the state of a flag:
 ```tsx
@@ -95,6 +109,49 @@ const MyComponent = () => {
 }
 ```
 
+### `active` vs `value`
+
+By design, you have no way of telling apart an inactive flag, a non-existing flag, a deleted flag, or a network error.
+This design choice prevents anything from breaking your
+app by just deleting a flag, messing up the API key rotation, or any other unforeseen event, it will simply consider any flag to be inactive.
+
+:::tip
+Do not use `value` if you simply want to know if a flag is active or not, use `active` instead.
+:::
+
+`value` gives you the value of an active flag, and this value may be "falsy" (null, false, 0, or empty string), leading to unexpected behaviors:
+
+```typescript
+if (value) {
+  // If flag is active, but its value is falsy this block won't be executed
+}
+
+if (active) {
+  // Even if flag has a falsy value, this block will be executed
+}
+```
+
+### Tracking flags evaluation events
+
+Tggl works nicely with your already existing analytics tool. For example if you are using [Amplitude](https://amplitude.com/), you can send tracking events everytime a flag is evaluated:
+
+```tsx
+import * as amplitude from '@amplitude/analytics-browser'
+
+const App = () => {
+  return (
+    <TgglProvider
+      client={client}
+      onFlagEvaluation={({ slug, active, value }) => {
+        amplitude.track('Flag evaluated', { slug, active, value })
+      }}
+    >
+      {/*...*/}
+    </TgglProvider>
+  )
+}
+```
+
 ## Reference
 ### TgglClient
 The client used to query the Tggl API.
@@ -103,10 +160,13 @@ const client = new TgglClient('YOUR_API_KEY')
 ```
 Read more about the [Node.js client](./node).
 ### TgglProvider
-Place this component at the root of your app. It gives your app access
-to the client and the state of the client.
+Place this component at the root of your app. It gives your app access to the client and the state of the client.
 ```tsx
-<TgglProvider client={client} initialContext={{ foo: 'bar' }}>
+<TgglProvider 
+  client={client} 
+  initialContext={{ foo: 'bar' }}
+  onFlagEvaluation={trackFlagEvaluation}
+>
   {/*...*/}
 </TgglProvider>
 ```
@@ -118,6 +178,9 @@ Allows you to pass an initial value.
 :::caution
 Updating the value of `initialContext` will have no effect, use the [`useTggl`](#usetggl) hook instead
 :::
+
+#### onFlagEvaluation
+This function is called everytime a flag is evaluated. It takes an object as only parameter with the following keys: `slug`, `active`, ans `value`.
 
 ### useTggl
 You can use this hook anywhere inside the `<TgglProvider />`. 

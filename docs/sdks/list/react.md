@@ -133,17 +133,19 @@ if (active) {
 
 ### Tracking flags evaluation events
 
-Tggl works nicely with your already existing analytics tool. For example if you are using [Amplitude](https://amplitude.com/), you can send tracking events everytime a flag is evaluated:
+Tggl works nicely with your already existing analytics tool. You can track all flag evaluation events in one place and forward it to your analytics to compute conversion rates for A/B testing.
+
+:::tip
+If you are using [Amplitude](https://amplitude.com/), tracking is automatic, you don't need to do anything. Just make sure you have the [Amplitude SDK](https://www.docs.developers.amplitude.com/data/sdks/sdk-quickstart/#npm) installed. `[Tggl] Flag evaluated` events will be sent to Amplitude with _slug_, _active_, and _value_.
+:::
 
 ```tsx
-import * as amplitude from '@amplitude/analytics-browser'
-
 const App = () => {
   return (
     <TgglProvider
       client={client}
       onFlagEvaluation={({ slug, active, value }) => {
-        amplitude.track('Flag evaluated', { slug, active, value })
+        trackEvent('Flag evaluated', { slug, active, value })
       }}
     >
       {/*...*/}

@@ -221,19 +221,19 @@ This should be used if you wish to only update a few keys, leaving the rest unch
 ### useFlag 
 
 ```tsx
-function useFlag<T>(slug: string): {
+function useFlag(slug: string): {
   active: boolean
-  value: T | undefined
+  value: any | undefined
   loading: boolean
   error: any
 }
 
-function useFlag<T>(
+function useFlag(
   slug: string,
-  defaultValue: T
+  defaultValue: any
 ): {
   active: boolean
-  value: T
+  value: any
   loading: boolean
   error: any
 }

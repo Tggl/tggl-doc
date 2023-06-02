@@ -223,8 +223,8 @@ Returns true when a flag is active. A value of false could mean:
 - Some network error
 
 ### `get`
-> `get<T>(slug: string): T | undefined`<br/>
-> `get<T>(slug: string, defaultValue: T): T`
+> `get(slug: string): any | undefined`<br/>
+> `get(slug: string, defaultValue: any): any`
 
 Returns the value of a flag, or `undefined` if the flag is not active.
 You may specify a default value as second parameter to use when the flag is inactive.

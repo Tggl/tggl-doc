@@ -20,7 +20,7 @@ The API can also be used on the backend to evaluate flags for a large number
 of contexts at once. Once again this is recommended to avoid re-implementing 
 evaluation logic and to avoid maintaining a cache of the configuration.
 
-# Evaluating a single context
+## Evaluating a single context
 
 The <Api method="POST" url="/flags" /> endpoint allows you to send a context 
 object 

@@ -82,6 +82,20 @@ if (flags.get('my-feature') === 'Variation A') {
 }
 ```
 
+### Typing
+
+Using the Tggl CLI you can run an introspection query to generate the TypeScript types for your flags and context.
+
+```bash
+npm i --save-dev tggl-cli
+tggl typing -k <SERVER_API_KEY> -o src/tggl.d.ts
+```
+
+Replace `<SERVER_API_KEY>` with your server API key or use the `TGGL_API_KEY` environment variable and omit the `-k` option. You should run this command everytime you need to update the typing. Your IDE will now autocomplete and type-check the context properties and all flag names and values.
+
+<Image img={require('./assets/autocomplete-client.png')} center />
+
+
 ### Evaluating contexts in batches
 
 If you have multiple contexts to evaluate at once, you can batch your calls in a single HTTP request which is much more performant:

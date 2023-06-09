@@ -1,6 +1,7 @@
 ---
 sidebar_position: 3
-description: For PHP backend
+pagination_prev: null
+pagination_next: null
 ---
 
 # PHP
@@ -81,7 +82,7 @@ if ($flags.isActive('my-feature')) {
 It is possible to evaluate flags locally on the server but not recommended unless you have performance issues evaluating flags at a high frequency. Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
 
 :::danger
-Make sure to [add the right keys to your context](../../api/server-side-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
+Make sure to [add the right keys to your context](../api/server-side-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
 :::
 
 ```php
@@ -100,7 +101,7 @@ $client->get(new Context(), 'my-feature')
 $client->get(new Context(), 'my-feature', 42)
 ```
 
-When evaluating flags locally it is your responsibility to keep the configuration up to date by calling `fetchConfig` when needed. You can use [webhooks](../../api/webhooks) to be notified when the configuration changes.
+When evaluating flags locally it is your responsibility to keep the configuration up to date by calling `fetchConfig` when needed. You can use [webhooks](../api/webhooks) to be notified when the configuration changes.
 
 You can cache the configuration and instantiate the client with the cached version, so you don't need to call fetchConfig:
 

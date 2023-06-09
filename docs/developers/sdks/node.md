@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
-description: For backend Node.js or unsupported frontend frameworks
+pagination_prev: null
+pagination_next: null
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -153,7 +154,7 @@ It is possible to evaluate flags locally on the server but not recommended unles
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
 
 :::danger
-Make sure to [add the right keys to your context](../../api/server-side-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
+Make sure to [add the right keys to your context](../api/server-side-flags-evaluation#important-differences-with-the-api) to be perfectly consistent with the Tggl API.
 :::
 
 ```ts
@@ -172,7 +173,7 @@ client.isActive({ userId: 'bar' }, 'my-feature')
 client.get({ userId: 'baz' }, 'my-feature')
 client.get({ userId: 'foobar' }, 'my-feature', 42)
 ```
-When evaluating flags locally it is your responsibility to keep the configuration up to date by calling `fetchConfig` when needed. You can use [webhooks](../../api/webhooks) to be notified when the configuration changes.
+When evaluating flags locally it is your responsibility to keep the configuration up to date by calling `fetchConfig` when needed. You can use [webhooks](../api/webhooks) to be notified when the configuration changes.
 
 You can cache the configuration and instantiate the client with the cached version, so you don't need to call `fetchConfig`:
 

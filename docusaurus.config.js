@@ -48,21 +48,15 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'doc/use-cases/environments',
+            docId: 'doc/index',
             position: 'left',
             label: 'Documentation',
           },
           {
             type: 'doc',
-            docId: 'api/index',
+            docId: 'developers/index',
             position: 'left',
-            label: 'API',
-          },
-          {
-            type: 'doc',
-            docId: '/category/sdks',
-            position: 'left',
-            label: 'SDKs',
+            label: 'Developers',
           },
           {
             href: 'https://app.tggl.io',
@@ -81,14 +75,14 @@ const config = {
                 to: '/docs/doc/use-cases/environments',
                 label: 'Documentation',
               },
-              {
-                to: '/docs/api',
-                label: 'API',
-              },
-              {
-                to: '/docs/category/sdks',
-                label: 'SDKs',
-              },
+              // {
+              //   to: '/docs/api',
+              //   label: 'API',
+              // },
+              // {
+              //   to: '/docs/developers/sdks',
+              //   label: 'SDKs',
+              // },
             ],
           },
           {

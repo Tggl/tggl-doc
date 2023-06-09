@@ -35,11 +35,11 @@ The <Api method="GET" url="/typing" /> endpoint returns a JSON object containing
 ## Listing flags
 In the example above, flag `flag_a` can  have either values A or B when active, and flag `flag_b` has a value of null when active ([Read more](api-flags-evaluation#evaluating-a-single-context) about flag values).
 
-The value of each flag is an array of all active [variation](../doc/concepts/variations.md) values the flag has, they can be any JSON value including arrays and objects.
+The value of each flag is an array of all active [variation](../../doc/concepts/variations.md) values the flag has, they can be any JSON value including arrays and objects.
 
 ## Context properties
 
-Context [properties](../doc/concepts/context) are listed with their type. Each type is represented by a JSON value in the context, for instance the `VERSION` type is represented by a string, the `DATE` type is represented by a number or a string, etc. Some types have additional options like the `SELECT` type which has a list of possible values.
+Context [properties](../../doc/concepts/context) are listed with their type. Each type is represented by a JSON value in the context, for instance the `VERSION` type is represented by a string, the `DATE` type is represented by a number or a string, etc. Some types have additional options like the `SELECT` type which has a list of possible values.
 
 |Type|Represented by|Options|
 |-|-|-|

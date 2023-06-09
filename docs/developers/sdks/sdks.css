@@ -1,0 +1,15 @@
+.sdk-list {
+  display: flex;
+  gap: 3rem;
+}
+
+.sdk-list a {
+  color: var(--ifm-color-primary-contrast-foreground);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sdk-list a:hover {
+  color: var(--ifm-color-primary-dark);
+}

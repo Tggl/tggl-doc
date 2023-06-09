@@ -22,7 +22,7 @@ Tggl provides seamless integration with Amplitude, allowing automatic tracking o
 
 Tggl works nicely with your already existing analytics tool. You can track all flag evaluation events in one place and forward it to your analytics to compute conversion rates for A/B testing. This way you do not need to switch between applications or change your existing processes to get the full picture.
 
-If you are using React, refer to the [React SDK documentation](../../sdks/list/react#tracking-flags-evaluation-events) to learn how to track flags evaluation events.
+If you are using React, refer to the [React SDK documentation](../../developers/sdks/react.md#tracking-flags-evaluation-events) to learn how to track flags evaluation events.
 
 ## Managing different variations
 

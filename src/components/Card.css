@@ -1,0 +1,5 @@
+.custom-card {
+  background: var(--ifm-color-secondary-lightest);
+  border-radius: .5rem;
+  padding: var(--ifm-global-spacing);
+}

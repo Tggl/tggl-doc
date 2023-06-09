@@ -1,6 +1,7 @@
 ---
 sidebar_position: 4
-description: For Python backend
+pagination_prev: null
+pagination_next: null
 ---
 
 # Python

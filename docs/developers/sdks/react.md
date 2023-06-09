@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
-description: For React SPAs
+pagination_prev: null
+pagination_next: null
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -63,7 +64,7 @@ const client = new TgglClient('YOUR_API_KEY', {
 })
 ```
 
-Read the [Node.js client](./node#reference) documentation more client specific information.
+Read the [Node.js client](node.md#reference) documentation more client specific information.
 
 ### Updating the context
 You can now change the context anywhere in the app using the `useTggl` hook:
@@ -173,7 +174,7 @@ The client used to query the Tggl API.
 ```tsx
 const client = new TgglClient('YOUR_API_KEY')
 ```
-Read more about the [Node.js client](./node).
+Read more about the [Node.js client](node.md).
 ### TgglProvider
 Place this component at the root of your app. It gives your app access to the client and the state of the client.
 ```tsx

@@ -1,8 +1,9 @@
 ---
 sidebar_position: 1
+pagination_prev: null
 ---
 
-# Authentication
+# API
 
 The Tggl API is organized around REST. 
 Our API has predictable resource-oriented URLs, accepts JSON-encoded bodies, returns JSON-encoded responses, 
@@ -15,6 +16,8 @@ is enabled), mobile device, or from your servers.
 https://api.tggl.io
 ```
 
+## Authentication
+
 All API calls must be authenticated with your API key in the `X-Tggl-API-Key` header. You will find your API key in the 
 [Tggl dashboard](http://localhost:3001/projects/default/api-keys)  .
 
@@ -25,12 +28,13 @@ curl 'https://api.tggl.io/<endpoint>' \
 
 ## Client vs. Server key
 
-Each project has its own set of client and server key which allows you do perform different actions:
+Each project has its own set of client and server key which allows you to perform different actions:
 
-|                                                     | Client key | Server key |
-|-----------------------------------------------------|------------|-----------|
-| Evaluate flags via API                              | ✅          | ✅         |
+|                                                      | Client key | Server key |
+|------------------------------------------------------|------------|-----------|
+| Evaluate flags via API                               | ✅          | ✅         |
 | Fetch flags configuration and evaluate flags locally | ❌          | ✅         |
+| Introspection                                        | ❌          | ✅         |
 
 It is recommended to always evaluate flags via the API unless you have performance issues when evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date which might be a source of issues.

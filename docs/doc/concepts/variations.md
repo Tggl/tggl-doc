@@ -58,7 +58,7 @@ Tggl supports strings, numbers, boolean, and JSON values.
 ## How to use variations in your code?
 
 :::info
-You can use any of our [SDK](../../category/sdks) to get started quickly, in this example we are going to use the Javascript SDK.
+You can use any of our [SDK](../../developers/sdks) to get started quickly, in this example we are going to use the Javascript SDK.
 :::
 
 The first thing you can do is test if a flag falls into an active variation or not for a given user:

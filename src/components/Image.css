@@ -5,7 +5,7 @@
 }
 
 .image-background {
-  background: #0E8BE7;
+  background: linear-gradient(90deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
   display: flex;
   padding: calc(var(--image-padding-y) * 1px) calc(var(--image-padding-x) * 1px);
   align-items: center;

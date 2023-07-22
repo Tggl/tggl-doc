@@ -38,7 +38,9 @@ pnpm install tggl-client
 
 ### Quick start
 
-**Stateful** flags evaluation stores result in the client.
+There are two ways to evaluate flags: **stateful** and **stateless**.
+
+**Stateful** flags evaluation stores result in the client itself.
 This is commonly used when instantiating a new client per HTTP request or when working on the frontend.
 You can use `isActive` and `get` on the client to access results:
 
@@ -67,7 +69,7 @@ It is commonly used on the backend with a global singleton client.
 You can use `isActive` and `get` on the response to access results:
 
 ```ts
-const falgs = await client.evalContext({
+const flags = await client.evalContext({
   userId: 'foo',
   email: 'foo@gmail.com',
   country: 'FR',
@@ -83,54 +85,16 @@ if (flags.get('my-feature') === 'Variation A') {
 }
 ```
 
-### Typing
+### Differences between `isActive` and `get`
 
-Using the Tggl CLI you can run an introspection query to generate the TypeScript types for your flags and context.
+By design, you have no way of telling apart those cases:
+- The flag is inactive due to some conditions
+- The flag does not exist
+- The flag was deleted
+- The API key is not valid
+- Some network error
 
-```bash
-npm i --save-dev tggl-cli
-tggl typing -k <SERVER_API_KEY> -o src/tggl.d.ts
-```
-
-Replace `<SERVER_API_KEY>` with your server API key or use the `TGGL_API_KEY` environment variable and omit the `-k` option. You should run this command everytime you need to update the typing. Your IDE will now autocomplete and type-check the context properties and all flag names and values.
-
-<Image img={require('./assets/autocomplete-client.png')} center />
-
-
-### Evaluating contexts in batches
-
-If you have multiple contexts to evaluate at once, you can batch your calls in a single HTTP request which is much more performant:
-
-```ts
-// Responses are returned in the same order
-const [ fooFlags, barFlags ] = await client.evalContexts([
-  { userId: 'foo' },
-  { userId: 'bar' },
-])
-```
-
-The client uses a [dataloader](https://www.npmjs.com/package/dataloader) under the hood, which means that all calls that are performed within the same event loop are batched:
-```ts
-// evalContext is called twice but a single API call is performed
-const [ fooFlags, barFlags ] = await Promise.all([
-  client.evalContext({ userId: 'foo' }),
-  client.evalContext({ userId: 'bar' }),
-])
-```
-
-### Async / await
-A single API call evaluating all flags is performed when calling
-`setContext` or `evalContext`,
-making all subsequent flag checking methods synchronous and extremely fast.
-
-This means that you do not need to cache results of `isActive` and `get` since
-they do not trigger an API call, they simply look up the data in the already fetched response.
-
-### `isActive` vs `get`
-
-By design, you have no way of telling apart an inactive flag, a non-existing flag, a deleted flag, or a network error. 
-This design choice prevents anything from breaking your
-app by just deleting a flag, messing up the API key rotation, or any other unforeseen event, it will simply consider any flag to be inactive.
+This design choice prevents unforeseen event from breaking your app, like someone deleting a flag or messing up the API key rotation. Your app will simply consider any flag to be inactive.
 
 :::tip
 Do not use `get` if you simply want to know if a flag is active or not, use `isActive` instead.
@@ -146,6 +110,66 @@ if (client.get('my-feature')) {
 if (client.isActive('my-feature')) {
   // Even if 'my-feature' has a falsy value, this block will be executed
 }
+```
+
+### Default values
+
+When using `get`, you can provide a default value that will be returned if the flag is inactive or does not exist:
+
+```typescript
+if (client.get('my-feature', 'Variation A') === 'Variation A') {
+  // This code will be executed if 'my-feature' is:
+  // - active and explicitely equal to 'Variation A'
+  // - inactive or deleted 
+}
+```
+
+### Typing
+
+Using the Tggl CLI you can run an introspection query to generate the TypeScript types for your flags and context.
+
+```bash
+# Install the CLI once
+npm i --save-dev tggl-cli
+
+# Generate the types every time that it is needed
+tggl typing -k <SERVER_API_KEY> -o src/tggl.d.ts
+
+# Drop the -k option if you have the TGGL_API_KEY environment variable set
+tggl typing -o src/tggl.d.ts
+```
+
+Replace `<SERVER_API_KEY>` with your server API key or use the `TGGL_API_KEY` environment variable and omit the `-k` option. You should run this command everytime you need to update the typing. Your IDE will now autocomplete and type-check the context properties and all flag names and values.
+
+<Image img={require('./assets/autocomplete-client.png')} center />
+
+### Which calls are asynchronous
+A single API call evaluating all flags is performed when calling
+`setContext` or `evalContext`,
+making all subsequent flag checking methods synchronous and extremely fast.
+
+This means that you do not need to cache results of `isActive` and `get` since
+they do not trigger an API call, they simply look up the data in the already fetched response.
+
+### Evaluating contexts in batches
+
+If you have multiple contexts to evaluate at once, you can batch your calls in a single HTTP request for a significant performance boost:
+
+```ts
+// Responses are returned in the same order
+const [ fooFlags, barFlags ] = await client.evalContexts([
+  { userId: 'foo' },
+  { userId: 'bar' },
+])
+```
+
+The client uses a [dataloader](https://www.npmjs.com/package/dataloader) under the hood, which means that all calls that are performed within the same event loop are batched together:
+```ts
+// evalContext is called twice but a single API call is performed
+const [ fooFlags, barFlags ] = await Promise.all([
+  client.evalContext({ userId: 'foo' }),
+  client.evalContext({ userId: 'bar' }),
+])
 ```
 
 ### Evaluating flags locally
@@ -217,11 +241,7 @@ Calling `setContext` updates the state of the client, you can read the response 
 >`isActive(slug: string): boolen`
 
 Returns true when a flag is active. A value of false could mean:
-- The flag is inactive due to some conditions
-- The flag does not exist
-- The flag was deleted
-- The API key is not valid
-- Some network error
+
 
 ### `get`
 > `get(slug: string): any | undefined`<br/>

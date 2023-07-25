@@ -27,7 +27,7 @@ Having a different release date for each country is a common use case. With
 Tggl simply add one condition per release date and select the countries 
 where the feature should be released:
 
-![Schedule by country](assets/schedule-by-country.png)
+<Image img={require('./assets/schedule-by-country.png')} />
 
 Here our feature follows the schedule below:
 - On July 14, our feature is released for France and Germany at 9:00 Paris time
@@ -44,7 +44,7 @@ Scheduling a progressive rollout is similar to scheduling by country. We
 create one condition per date and select the percentage of users that should 
 see the feature for each date:
 
-![Schedule progressive rollout](assets/schedule-progressive-rollout.png)
+<Image img={require('./assets/schedule-progressive-rollout.png')} />
 
 - On July 14, 10% of the users will see the feature
 - One week later, on July 21, 25% of the users will see the feature: the 10% 

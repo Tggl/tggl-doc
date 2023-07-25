@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 
 # Node.js
 ## Guide
-### Installation
+### Installation plop
 Add the client to your dependencies:
 ```mdx-code-block
 <Tabs>

@@ -22,7 +22,7 @@ For each flag you can choose which variation to display based on conditions. Her
 ## Managing a feature flag's variations
 
 From the feature flags menu, select a flag and go to the **Variations** tab. From there you can manage this particular flag's variations.
-<Image img={require('./assets/variations-tab@2x.png')} bottom />
+<Image img={require('./assets/variations-tab@2x.png')} />
 
 It is recommended to give each variation a name and description that is meaningful to you and your teammates. This will make it easier to understand what each variation is.
 
@@ -53,7 +53,7 @@ If you have multiple active variations, you need to add values to each one to be
 
 Tggl supports strings, numbers, boolean, and JSON values.
 
-<Image img={require('./assets/variation-values@2x.png')} right center />
+<Image img={require('./assets/variation-values@2x.png')} />
 
 ## How to use variations in your code?
 

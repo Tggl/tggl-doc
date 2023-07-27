@@ -60,7 +60,7 @@ Start by adding it to the Tggl app. Since context are [project](./projects)
 specific, first select the project you want to add the property to, then 
 from the context menu hit _New_:
 
-<Image img={require('./assets/new-context-property@2x.png')} bottom padding="s" />
+<Image img={require('./assets/new-context-property@2x.png')} />
 
 From this modal you can create the property you want, here we created a 
 version number for our Android app that will allow us to display a 

@@ -33,7 +33,7 @@ _context_ menu.
 Edit the _Environment_ property to add / rename environments as needed and 
 hit _Update_.
 
-<Image img={require('./assets/edit-environment@2x.png')} bottom />
+<Image img={require('./assets/edit-environment@2x.png')}/>
 
 ## Passing the environment from your code
 

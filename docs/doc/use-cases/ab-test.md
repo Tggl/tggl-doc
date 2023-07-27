@@ -42,7 +42,7 @@ if (client.isActive('my-flag')) {
 
 For more advanced use cases where you want to test multiple variations at the same time you cannot simply rely on whether the flag is active or not. To differentiate all active variations you need to add a value to each, here we added the hex color code of the variation as a string value:
 
-<Image img={require('./assets/complex-ab-test-variations@2x.png')} right center />
+<Image img={require('./assets/complex-ab-test-variations@2x.png')}  />
 
 From your code you can now retrieve that value and use it to render the right version of your feature. Notice that if the user is in the control group, the value will be `null`, it is up to the developer to handle this case by adding a default value in the code:
 

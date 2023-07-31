@@ -5,7 +5,7 @@
 }
 
 .image-background {
-  background: linear-gradient(90deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  background: #4a74eb no-repeat center center / cover;
   display: flex;
   padding: calc(var(--image-padding-y) * 1px) calc(var(--image-padding-x) * 1px);
   align-items: center;
@@ -54,7 +54,7 @@
 
 .image-background .image-container {
   border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0 6px 20px 0, rgba(0, 0, 0, 0.06) 0 0 0 1px;
+  box-shadow: rgba(0, 0, 0, 0.30) 0 6px 20px 0, rgba(0, 0, 0, 0.15) 0 0 0 1px;
   overflow: hidden;
   background-size: cover;
   background-repeat: no-repeat;

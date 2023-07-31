@@ -1,0 +1,4 @@
+.video-container > div {
+  margin: auto;
+  max-width: 100%;
+}

@@ -54,6 +54,12 @@ const config = {
           },
           {
             type: 'doc',
+            docId: 'help/index',
+            position: 'left',
+            label: 'Help Center',
+          },
+          {
+            type: 'doc',
             docId: 'developers/index',
             position: 'left',
             label: 'Developers',
@@ -114,7 +120,7 @@ const config = {
         quality: 70,
         max: 1600,
         min: 400,
-        steps: 5,
+        steps: 6,
         disableInDev: false,
       },
     ],

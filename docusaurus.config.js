@@ -120,7 +120,7 @@ const config = {
         quality: 70,
         max: 1600,
         min: 400,
-        steps: 5,
+        steps: 6,
         disableInDev: false,
       },
     ],

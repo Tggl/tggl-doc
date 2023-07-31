@@ -2,6 +2,7 @@ import React from 'react';
 // Import the original mapper
 import MDXComponents from '@theme-original/MDXComponents';
 import {Image} from '@site/src/components/Image';
+import {Video} from '@site/src/components/Video';
 import {Api} from '@site/src/components/Api';
 import {Card} from '@site/src/components/Card';
 import {Button} from '@site/src/components/Button';
@@ -14,6 +15,7 @@ export default {
   // Re-use the default mapping
   ...MDXComponents,
   Image,
+  Video,
   Api,
   Card,
   Button,

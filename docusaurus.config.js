@@ -54,6 +54,12 @@ const config = {
           },
           {
             type: 'doc',
+            docId: 'help/index',
+            position: 'left',
+            label: 'Help Center',
+          },
+          {
+            type: 'doc',
             docId: 'developers/index',
             position: 'left',
             label: 'Developers',

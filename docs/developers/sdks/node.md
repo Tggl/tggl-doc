@@ -178,7 +178,7 @@ const clientTwo = new TgglClient<
 >('API_KEY_TWO')
 ```
 
-The SDK also export some helper types if needed:
+The SDK also exports some helper types if needed:
 ```typescript
 import { TgglFlagSlug, TgglFlagValue, TgglFlags } from 'tggl-client'
 

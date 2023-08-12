@@ -53,7 +53,7 @@ on the app:
 The `projectSlug` key is the slug of the project of the flag and can also be 
 found on the app:
 
-<Image img={require('./assets/project-slug@2x.png')} bottom right center padding="l" />
+<Image img={require('./assets/project-slug@2x.png')} />
 
 ## Debugging
 
@@ -61,4 +61,4 @@ You can debug your webhooks by sending a test request to your endpoint and
 displaying the list of calls. For each call you can inspect the request and 
 the response.
 
-<Image img={require('./assets/webhook-runs@2x.png')} />
+<Image img={require('./assets/webhook-runs@2x.png')} bottom />

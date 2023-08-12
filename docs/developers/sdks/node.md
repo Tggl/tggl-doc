@@ -7,28 +7,30 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 # Node.js
-## Guide
-### Installation
+
+This SDK can be used both on the server and in the browser. If you are using a frontend framework like [React](react) you probably want to use the specialized SDK which uses this package under the hood.
+
+## Installation
 Add the client to your dependencies:
 ```mdx-code-block
 <Tabs>
   <TabItem value="npn" label="npm" default>
 ```
-```
+```bash
 npm i tggl-client
 ```
 ```mdx-code-block
   </TabItem>
   <TabItem value="Yarn" label="Yarn">
 ```
-```
+```bash
 yarn add tggl-client
 ```
 ```mdx-code-block
   </TabItem>
   <TabItem value="pnpm" label="pnpm">
 ```
-```
+```bash
 pnpm install tggl-client
 ```
 ```mdx-code-block
@@ -36,7 +38,7 @@ pnpm install tggl-client
 </Tabs>
 ```
 
-### Quick start
+## Quick start
 
 There are two ways to evaluate flags: **stateful** and **stateless**.
 
@@ -85,9 +87,9 @@ if (flags.get('my-feature') === 'Variation A') {
 }
 ```
 
-### Differences between `isActive` and `get`
+## Differences between `isActive` and `get`
 
-By design, you have no way of telling apart those cases:
+By design, inactive flags are not in the response, which means that you have no way of telling apart those cases:
 - The flag is inactive due to some conditions
 - The flag does not exist
 - The flag was deleted
@@ -112,9 +114,9 @@ if (client.isActive('my-feature')) {
 }
 ```
 
-### Default values
+## Hard-coded fallback values
 
-When using `get`, you can provide a default value that will be returned if the flag is inactive or does not exist:
+When using `get`, you can provide a fallback value that will be returned if the flag is inactive or does not exist:
 
 ```typescript
 if (client.get('my-feature', 'Variation A') === 'Variation A') {
@@ -124,7 +126,8 @@ if (client.get('my-feature', 'Variation A') === 'Variation A') {
 }
 ```
 
-### Typing
+## Typing
+### CLI
 
 Using the Tggl CLI you can run an introspection query to generate the TypeScript types for your flags and context.
 
@@ -143,7 +146,60 @@ Replace `<SERVER_API_KEY>` with your server API key or use the `TGGL_API_KEY` en
 
 <Image img={require('./assets/autocomplete-client.png')} center />
 
-### Which calls are asynchronous
+### Typing system
+
+The CLI generate two interfaces: `TgglContext` and `TgglFlags` that look like this (based on your own configuration on Tggl):
+
+```typescript
+interface TgglContext {
+  userId: string
+  email: string
+  timestamp: string | number
+  environement: "production" | "local" | "staging"
+}
+
+interface TgglFlags {
+  new_blog_layout: true
+  color_button: "#00ff00" | "#0000ff"
+}
+```
+
+They are used by default by the client, but you can manually override them if you need to, notably if you want to instantiate multiple clients for different projects:
+
+```typescript
+const clientOne = new TgglClient<
+  FlagsProjectOne, 
+  ContextProjectOne
+>('API_KEY_ONE')
+
+const clientTwo = new TgglClient<
+  FlagsProjectTwo, 
+  ContextProjectTwo
+>('API_KEY_TWO')
+```
+
+The SDK also export some helper types if needed:
+```typescript
+import { TgglFlagSlug, TgglFlagValue, TgglFlags } from 'tggl-client'
+
+// Slug type
+const slug: TgglFlagSlug = 'new_blog_layout'
+const slug: TgglFlagSlug<{ flag_a: true }> = 'flag_a'
+
+// Value type
+const value: TgglFlagValue<'color_button'> = "#00ff00"
+const value: TgglFlagValue<'my_flag', { my_flag: 'a' | 'b'}> = "b"
+
+// Use it to build typed functions
+function getFlag<
+  TFlags extends TgglFlags = TgglFlags,
+  TSlug extends TgglFlagSlug<TFlags>
+>(slug: TSlug): TgglFlagValue<TSlug, TFlags> | undefined {
+  // ...
+}
+```
+
+## Which calls are asynchronous
 A single API call evaluating all flags is performed when calling
 `setContext` or `evalContext`,
 making all subsequent flag checking methods synchronous and extremely fast.
@@ -151,7 +207,7 @@ making all subsequent flag checking methods synchronous and extremely fast.
 This means that you do not need to cache results of `isActive` and `get` since
 they do not trigger an API call, they simply look up the data in the already fetched response.
 
-### Evaluating contexts in batches
+## Evaluating contexts in batches
 
 If you have multiple contexts to evaluate at once, you can batch your calls in a single HTTP request for a significant performance boost:
 
@@ -172,7 +228,7 @@ const [ fooFlags, barFlags ] = await Promise.all([
 ])
 ```
 
-### Evaluating flags locally
+## Evaluating flags locally
 
 It is possible to evaluate flags locally on the server but not recommended unless you have performance issues evaluating flags at a high frequency, or if you need to split traffic on the edge without doing an API call.
 Evaluating flags locally forces you to maintain the copy of flags configuration up to date and might be a source of issues.
@@ -209,71 +265,4 @@ const cachedConfig = [{ slug: 'flagA', /*...*/ }]
 const client = new TgglLocalClient('YOUR_SERVER_API_KEY', {
   initialConfig: cachedConfig
 })
-```
-
-## Reference
-
-The client can be instantiated with or without options:
-```ts
-import { TgglClient } from 'tggl-client'
-
-const client = new TgglClient('YOUR_API_KEY')
-
-const client = new TgglClient('YOUR_API_KEY', { 
-  url: 'https://api.tggl.io/flags',
-  // 👇 Initial response from the API
-  initialActiveFlags: {
-    flagA: null,
-    flagB: 'foo',
-  }, 
-})
-```
-
-You will find your API key on the [app](https://app.tggl.io/projects/app/api-keys). 
-
-### `setContext`
-> `setContext(context: Context): Promise<void>`
-
-Performs an API call, evaluating all flags for a given context.
-Calling `setContext` updates the state of the client, you can read the response using [get](#get) and [isActive](#isactive) on the client directly.
-
-### `isActive`
->`isActive(slug: string): boolen`
-
-Returns true when a flag is active. A value of false could mean:
-
-
-### `get`
-> `get(slug: string): any | undefined`<br/>
-> `get(slug: string, defaultValue: any): any`
-
-Returns the value of a flag, or `undefined` if the flag is not active.
-You may specify a default value as second parameter to use when the flag is inactive.
-
-### `evalContext`
-> `evalContext(context: Context): Promise<TgglResponse>`
-
-Performs an API call, evaluating all flags for a given context.
-Calling `evalContext` does not update the state of the client, 
-you can read the response using `get` and `isActive` on the response directly.
-
-All simultaneous calls to `evalContext` (within the same event loop tick) 
-will automatically be batched in a single API call.
-
-```ts
-const [responseA, responseB] = await Promise.all([
-  client.evalContext(contextA),
-  client.evalContext(contextB),
-]) // => only 1 API call
-```
-### `evalContexts`
-> `evalContexts(contexts: Context[]): Promise<TgglResponse[]>`
-
-This is a shorthand to calling `evalContext` multiple times simultaneously.
-
-```ts
-const [responseA, responseB] = await client.evalContexts([
-  contextA,
-  contextB,
-])
 ```

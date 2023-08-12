@@ -99,7 +99,5 @@ If you do not manually pass those keys to the context you might have discrepanci
 Here is the exhaustive list of keys that are automatically added by Tggl when evaluating flags via the API:
 
 - `timestamp`: the current timestamp
-- `acceptLanguage`: the value of the `accept-language` HTTP header
 - `ip`: the IP address that made the HTTP request
-- `userAgent`: the value of the `user-agent` HTTP header
 - `referer`: the value of the `referer` HTTP header

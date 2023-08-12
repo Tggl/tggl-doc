@@ -32,7 +32,7 @@ The <Api method="GET" url="/typing" /> endpoint returns a JSON object containing
 }
 ```
 
-## Listing flags
+## Flags and variations
 In the example above, flag `flag_a` can  have either values A or B when active, and flag `flag_b` has a value of null when active ([Read more](api-flags-evaluation#evaluating-a-single-context) about flag values).
 
 The value of each flag is an array of all active [variation](../../doc/concepts/variations.md) values the flag has, they can be any JSON value including arrays and objects.
@@ -56,3 +56,22 @@ Context [properties](../../doc/concepts/context) are listed with their type. Eac
 |`DATE`|<code>string &#124; number</code>||
 |`BOOLEAN`|`boolean`||
 |`SELECT`|`string`|`{ options : { value: string }[] }`|
+
+## Command line interface
+
+You can use the Tggl CLI to generate the TypeScript types for your flags and context.
+
+```bash
+# Install the CLI once
+npm i --save-dev tggl-cli
+
+# Generate the types every time that it is needed
+tggl typing -k <SERVER_API_KEY> -o src/tggl.d.ts
+
+# Drop the -k option if you have the TGGL_API_KEY environment variable set
+tggl typing -o src/tggl.d.ts
+```
+
+Specifying an output file using the `-o` option that ends with `*.d.ts` will generate a TypeScript declaration file for the [Node.js SDK](../sdks/node).
+
+If you decide not to use the SDK you can specify a simple `*.ts` file to only generate the interfaces.

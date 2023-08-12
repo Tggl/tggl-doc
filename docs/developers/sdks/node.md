@@ -193,7 +193,7 @@ const value: TgglFlagValue<'my_flag', { my_flag: 'a' | 'b'}> = "b"
 // Use it to build typed functions
 function getFlag<
   TFlags extends TgglFlags = TgglFlags,
-  TSlug extends TgglFlagSlug<TFlags>
+  TSlug extends TgglFlagSlug<TFlags> = TgglFlagSlug<TFlags>
 >(slug: TSlug): TgglFlagValue<TSlug, TFlags> | undefined {
   // ...
 }

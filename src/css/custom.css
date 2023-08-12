@@ -18,7 +18,7 @@
 
   --ifm-menu-color-active: var(--ifm-color-primary-dark);
   --ifm-hover-overlay: var(--ifm-color-primary-lightest);
-  --ifm-code-background: var(--ifm-color-primary-lightest);
+  --ifm-code-background: var(--ifm-color-gray-100);
   --ifm-breadcrumb-color-active: var(--ifm-color-primary-dark);
   --doc-sidebar-width: 260px !important;
   --ifm-heading-font-weight: 600;
@@ -53,7 +53,7 @@ table thead tr {
 
 code {
   border: none;
-  /*color: var(--ifm-color-primary-darker);*/
+  color: var(--ifm-color-gray-800);
 }
 
 .alert {

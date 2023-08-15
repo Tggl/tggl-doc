@@ -7,25 +7,40 @@ sidebar_position: 5
 Types introspection allows you to retrieve the list of all flags and their variations, as well as the list of all context properties. This endpoint is used by the Tggl CLI to generate the TypeScript types but can be used for other purposes you might have.
 
 The <Api method="GET" url="/typing" /> endpoint returns a JSON object containing the following properties:
+
 ```json
 {
   "flags": {
-    "flag_a": ["A", "B"],
-    "flag_b": [null]
+    "flag_a": [
+      "A",
+      "B"
+    ],
+    "flag_b": [
+      null
+    ]
   },
   "context": {
     "timestamp": {
-      "type": "DATE"
+      "type": "DATE",
+      "hidden": false
     },
     "userId": {
-      "type": "STRING"
+      "type": "STRING",
+      "hidden": true
     },
     "environment": {
       "type": "SELECT",
+      "hidden": false,
       "options": [
-        { "value": "development" },
-        { "value": "staging" },
-        { "value": "production" }
+        {
+          "value": "development"
+        },
+        {
+          "value": "staging"
+        },
+        {
+          "value": "production"
+        }
       ]
     }
   }
@@ -40,6 +55,8 @@ The value of each flag is an array of all active [variation](../../doc/concepts/
 ## Context properties
 
 Context [properties](../../doc/concepts/context) are listed with their type. Each type is represented by a JSON value in the context, for instance the `VERSION` type is represented by a string, the `DATE` type is represented by a number or a string, etc. Some types have additional options like the `SELECT` type which has a list of possible values.
+
+In addition to the type, each property has a `hidden` boolean property which indicates whether the property has been hidden or not from the dashboard.
 
 |Type|Represented by|Options|
 |-|-|-|

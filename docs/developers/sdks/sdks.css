@@ -1,6 +1,7 @@
 .sdk-list {
   display: flex;
-  gap: 3rem;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
 }
 
 .sdk-list a {

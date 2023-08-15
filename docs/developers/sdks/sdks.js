@@ -24,6 +24,26 @@ export const SDKs = () => {
           <FontAwesomeIcon icon="fa-brands fa-python" size="2xl" />
           Python
         </Link>
+        <Link to="vue">
+          <FontAwesomeIcon icon="fa-brands fa-vuejs" size="2xl" />
+          Vue.js
+        </Link>
+        <Link to="golang">
+          <FontAwesomeIcon icon="fa-brands fa-golang" size="2xl" />
+          Go
+        </Link>
+        <Link to="kotlin">
+          <FontAwesomeIcon icon="fa-brands fa-java" size="2xl" />
+          Kotlin
+        </Link>
+        <Link to="swift">
+          <FontAwesomeIcon icon="fa-brands fa-swift" size="2xl" />
+          Swift
+        </Link>
+        <Link to="java">
+          <FontAwesomeIcon icon="fa-brands fa-java" size="2xl" />
+          Java
+        </Link>
       </div>
     </Card>
   )

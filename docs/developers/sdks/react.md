@@ -15,21 +15,21 @@ Add the client to your dependencies:
 <Tabs>
   <TabItem value="npn" label="npm" default>
 ```
-```
+```bash
 npm i react-tggl-client
 ```
 ```mdx-code-block
   </TabItem>
   <TabItem value="Yarn" label="Yarn">
 ```
-```
+```bash
 yarn add react-tggl-client
 ```
 ```mdx-code-block
   </TabItem>
   <TabItem value="pnpm" label="pnpm">
 ```
-```
+```bash
 pnpm install react-tggl-client
 ```
 ```mdx-code-block

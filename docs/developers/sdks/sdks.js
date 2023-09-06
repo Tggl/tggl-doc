@@ -32,6 +32,10 @@ export const SDKs = () => {
           <FontAwesomeIcon icon="fa-brands fa-golang" size="2xl" />
           Go
         </Link>
+        <Link to="rubyonrails">
+          <FontAwesomeIcon icon="fa-solid fa-diamond" size="2xl" />
+          Ruby
+        </Link>
         <Link to="kotlin">
           <FontAwesomeIcon icon="fa-brands fa-java" size="2xl" />
           Kotlin

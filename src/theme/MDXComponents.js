@@ -9,7 +9,9 @@ import {Button} from '@site/src/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import the FontAwesomeIcon component.
 import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library component.
 import { fab } from '@fortawesome/free-brands-svg-icons'; // Import all brands icons.
+import { fas } from '@fortawesome/free-solid-svg-icons'; // Import all brands icons.
 library.add(fab);
+library.add(fas);
 
 export default {
   // Re-use the default mapping

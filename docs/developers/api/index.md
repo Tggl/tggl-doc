@@ -19,7 +19,7 @@ https://api.tggl.io
 ## Authentication
 
 All API calls must be authenticated with your API key in the `X-Tggl-API-Key` header. You will find your API key in the 
-[Tggl dashboard](http://localhost:3001/projects/default/api-keys)  .
+[Tggl dashboard](https://app.tggl.io/project/default/api-keys)  .
 
 ```bash
 curl 'https://api.tggl.io/<endpoint>' \

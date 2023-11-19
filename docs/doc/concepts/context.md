@@ -68,7 +68,7 @@ fullscreen message on deprecated app versions.
 
 <Image img={require('./assets/create-context-property-modal@2x.png')} />
 
-The name an type are used by Tggl to display the list of properties to pick 
+The name and type are used by Tggl to display the list of properties to pick 
 from and the corresponding operator on the app. Because we selected the type 
 version, we have the _min version_, _max version_, and _exact version_ 
 operators that we can choose from. If we had chosen a date type, we would 
@@ -83,3 +83,47 @@ await client.setContext({
   // Other context properties like userId, email...
 })
 ```
+## How to edit a context property?
+
+In Tggl, editing a context property allows you to modify its name, key, type, and description. To do so, simply click on the three dots **“(...)”** located at the right side of the context property you want to edit, then **“Edit”.** 
+
+A modal will appear, allowing you to modify the context property. When you’re done, simply click on the "Update" button to save the changes to the context property.
+
+:::caution 
+You can only edit the name and description for built-in properties.
+:::
+
+
+## How to delete a context property?
+
+To delete a context property, simply click on the three dots **“(...)”** located at the right side of the context property you want to delete, then **“Delete”.** 
+
+:::caution
+You cannot delete built-in context properties.
+Moreover, if your context property is used by a flag, you will not be able to delete. You can either update this flag and delete this property then, or hide this property now to simplify setting up new flags.
+:::
+
+## How to hide a context property?
+
+To delete a context property, simply click on the three dots **“(...)”** located at the right side of the context property you want to delete, then **“Hide”.** 
+
+Once you hide a context property it won’t appear neither on your context tab nor on your flag conditions.
+
+## How to search for a context property?
+
+To search for a context property, you can either : 
+
+- use the filter visibility (visible / hidden) and usage (used / not used)
+- use the search bar searching by name, key, type or description;
+- order the columns by clicking on the columns name
+
+## Troubleshooting
+
+- **I can’t find my context in my flag conditions** 
+⇒ It means someone made the context unusable by marking it as “hidden”.
+
+- **I can’t find my context in the Context tab** 
+⇒ The context is hidden: remove the filter “visibility” to unveil the hidden contexts
+
+- **I removed the filter “visibility” but I still can’t find my context** 
+⇒ Are you on the right project ? Contexts are not shared across projects. They need to be re-created separately. Try switching projects or recreating your context in this project if needed.

@@ -67,7 +67,7 @@ Your flag names should be intuitive and self-explanatory, providing immediate cl
 4. Avoid generic names: Use specific, unambiguous names.
     - Example: “**Increase Search Results Limit**” instead of “**Search Modification**.”
 
-### **Using tags to distinguish flag types**
+### Using tags to distinguish flag types
 
 Tags are instrumental in categorizing and filtering flags. 
 
@@ -76,13 +76,13 @@ Tags are instrumental in categorizing and filtering flags.
 2. You can also use tags to reflect categories like feature areas, project phases, or teams responsible.
     - Example: Tags like “**Checkout**”, “**Beta Test**”, or “**Q1 Release**” help in quickly identifying and grouping related flags.
 
-### **Utilizing descriptions for enhanced clarity**
+### Utilizing descriptions for enhanced clarity
 
 Provide detailed descriptions for each flag, outlining its purpose, active and inactive states, intended duration, and any impacted metrics.
 
 - Example: State “When active, this flag allows users to access feature X” instead of vague descriptions like “Controls visibility of feature X.”
 
-### **Consistency and clarity in flag keys**
+### Consistency and clarity in flag keys
 
 1. Tggl automatically suggests camelCase keys (e.g., **`EnableNewCheckoutFlow`**).
 2. Manually adjust keys to align with your team’s coding standards if necessary.
